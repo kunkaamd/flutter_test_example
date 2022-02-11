@@ -12,6 +12,7 @@ import 'common_service.dart';
 class ApiService {
   final dio = Dio();
   late CommonService common;
+
   ApiService() {
     if (kDebugMode) {
       dio.interceptors.add(PrettyDioLogger(

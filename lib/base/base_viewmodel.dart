@@ -15,6 +15,10 @@ class BaseViewModel extends GetxController {
     Get.dialog(const LoadingDialog());
   }
 
+  showMessage(String message) {
+    Get.dialog(MessageDialog(message: message,));
+  }
+
   hideLoading() {
     Navigator.of(Get.overlayContext!).pop();
   }

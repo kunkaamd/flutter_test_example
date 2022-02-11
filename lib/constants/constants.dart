@@ -1,5 +1,5 @@
 import 'dart:ui';
-
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:test_round_1/resources/app_color.dart';
 
@@ -31,7 +31,6 @@ extension ToString on PasswordStrong? {
 }
 
 extension StringExt on String {
-
   PasswordStrong strongPassword() {
     if(length <= 8) {
       return PasswordStrong.tooShort;
@@ -47,5 +46,11 @@ extension StringExt on String {
     } else {
       return PasswordStrong.week;
     }
+  }
+}
+
+extension DioErrorExt on DioError {
+  String getErrorMessage() {
+    return response?.data['errorMessage'] ?? message;
   }
 }

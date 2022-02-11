@@ -1,23 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
+import 'package:get/get.dart';
 import 'package:test_round_1/network/dto/category_response_dto.dart';
 import 'package:test_round_1/pages/category_vm.dart';
 
 class Category extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
           SizedBox(
-              height: double.infinity,
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: Image.asset("assets/images/category_background.png"),
-              )),
+            height: double.infinity,
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: SizedBox(
+                height: 409.h,
+                width: double.infinity,
+                child: Image.asset(
+                  "assets/images/category_background.png",
+                  fit: BoxFit.fill,
+                ),
+              ),
+            ),
+          ),
           Positioned(
             top: 0,
             right: 0,
@@ -62,25 +69,25 @@ class Category extends StatelessWidget {
                       height: 20.h,
                     ),
                     GetBuilder<CategoryVM>(
-                        init: CategoryVM(),
-                        builder: (vm) {
-                          return GridView.builder(
-                            itemCount: vm.categories.length,
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3,
-                              crossAxisSpacing: 8,
-                              mainAxisSpacing: 8,
-                            ),
-                            itemBuilder: (BuildContext context, int index) =>
-                                _ItemCategory(
-                              categoryView: vm.categories[index],
-                              isActive: true,
-                            ),
-                          );
-                        })
+                      init: CategoryVM(),
+                      builder: (vm) {
+                        return GridView.builder(
+                          itemCount: vm.categories.length,
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            crossAxisSpacing: 8,
+                            mainAxisSpacing: 8,
+                          ),
+                          itemBuilder: (BuildContext context, int index) =>
+                              _ItemCategory(
+                            categoryView: vm.categories[index],
+                          ),
+                        );
+                      },
+                    ),
                   ],
                 ),
               ),
@@ -94,18 +101,20 @@ class Category extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SvgPicture.asset("assets/icons/icon_back.svg"),
-                GetBuilder<CategoryVM>(
-                  builder: (vm) {
-                    return InkWell(
-                      onTap: vm.save,
-                      child: const Text(
-                        "Done",
-                        style: TextStyle(fontSize: 12, color: Colors.white),
-                      ),
-                    );
-                  }
-                )
+                InkWell(
+                    onTap: () {
+                      Get.back();
+                    },
+                    child: SvgPicture.asset("assets/icons/icon_back.svg")),
+                GetBuilder<CategoryVM>(builder: (vm) {
+                  return InkWell(
+                    onTap: vm.save,
+                    child: const Text(
+                      "Done",
+                      style: TextStyle(fontSize: 12, color: Colors.white),
+                    ),
+                  );
+                })
               ],
             ),
           ),
@@ -117,35 +126,40 @@ class Category extends StatelessWidget {
 
 class _ItemCategory extends StatelessWidget {
   final CategoryView categoryView;
-  final bool isActive;
 
-  const _ItemCategory(
-      {Key? key, required this.categoryView, this.isActive = false})
-      : super(key: key);
+  const _ItemCategory({Key? key, required this.categoryView}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: isActive
-            ? const LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [Color(0xFF8A32A9), Color(0xFF8A00FF)],
-                stops: [0.03, 0.34],
-              )
-            : null,
-        borderRadius: BorderRadius.circular(8),
-        border: !isActive
-            ? Border.all(color: Colors.white.withOpacity(0.12), width: 1)
-            : null,
-      ),
-      child: Center(
-        child: Text(
-          "Family",
-          style: TextStyle(fontSize: 14, color: Colors.white.withOpacity(0.82)),
+    return GetBuilder<CategoryVM>(builder: (vm) {
+      return InkWell(
+        onTap: () {
+          vm.updateCategory(categoryView);
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: categoryView.isSelected
+                ? const LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [Color(0xFF8A32A9), Color(0xFF8A00FF)],
+                    stops: [0.03, 0.34],
+                  )
+                : null,
+            borderRadius: BorderRadius.circular(8),
+            border: !categoryView.isSelected
+                ? Border.all(color: Colors.white.withOpacity(0.12), width: 1)
+                : null,
+          ),
+          child: Center(
+            child: Text(
+              categoryView.name ?? "",
+              style: TextStyle(
+                  fontSize: 14, color: Colors.white.withOpacity(0.82)),
+            ),
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 }

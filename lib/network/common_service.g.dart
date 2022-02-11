@@ -37,23 +37,22 @@ class _CommonService implements CommonService {
   }
 
   @override
-  Future<UserResponseDTO> saveCategories(body, userId) async {
+  Future<dynamic> saveCategories(body, userId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'Content-Type': 'application/json'};
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(body);
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<UserResponseDTO>(Options(
-                method: 'PUT',
-                headers: _headers,
-                extra: _extra,
-                contentType: 'application/json')
-            .compose(_dio.options, '/users/${userId}/default-categories',
-                queryParameters: queryParameters, data: _data)
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = UserResponseDTO.fromJson(_result.data!);
+    final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
+            method: 'PUT',
+            headers: _headers,
+            extra: _extra,
+            contentType: 'application/json')
+        .compose(_dio.options, '/users/${userId}/default-categories',
+            queryParameters: queryParameters, data: _data)
+        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = _result.data;
     return value;
   }
 

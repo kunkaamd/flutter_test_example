@@ -8,18 +8,25 @@ import 'package:test_round_1/pages/sign_up_vm.dart';
 import '../components/app_password.dart';
 
 class SignUp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
           SizedBox(
-              height: double.infinity,
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: Image.asset("assets/images/signup_background.png"),
-              )),
+            height: double.infinity,
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: SizedBox(
+                height: 409.h,
+                width: double.infinity,
+                child: Image.asset(
+                  "assets/images/signup_background.png",
+                  fit: BoxFit.fill,
+                ),
+              ),
+            ),
+          ),
           Positioned(
             top: 0,
             right: 0,
@@ -78,7 +85,8 @@ class SignUp extends StatelessWidget {
                             ),
                             const Text(
                               "I am over 16 years of age",
-                              style: TextStyle(fontSize: 14, color: Colors.white),
+                              style:
+                                  TextStyle(fontSize: 14, color: Colors.white),
                             ),
                           ],
                         ),
@@ -88,29 +96,29 @@ class SignUp extends StatelessWidget {
                       ),
                       RichText(
                           text: TextSpan(children: [
-                            //By clicking Sign Up, you are indicating that you have read and agree to the Terms of Service and Privacy Policy
-                            TextSpan(
-                                text:
+                        //By clicking Sign Up, you are indicating that you have read and agree to the Terms of Service and Privacy Policy
+                        TextSpan(
+                            text:
                                 "By clicking Sign Up, you are indicating that you have read and agree to the ",
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.white.withOpacity(0.5))),
-                            TextSpan(
-                                text: "Terms of Service ",
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    color: Theme.of(context).primaryColor)),
-                            TextSpan(
-                                text: "and ",
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.white.withOpacity(0.5))),
-                            TextSpan(
-                                text: "Privacy Policy",
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    color: Theme.of(context).primaryColor)),
-                          ])),
+                            style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.white.withOpacity(0.5))),
+                        TextSpan(
+                            text: "Terms of Service ",
+                            style: TextStyle(
+                                fontSize: 12,
+                                color: Theme.of(context).primaryColor)),
+                        TextSpan(
+                            text: "and ",
+                            style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.white.withOpacity(0.5))),
+                        TextSpan(
+                            text: "Privacy Policy",
+                            style: TextStyle(
+                                fontSize: 12,
+                                color: Theme.of(context).primaryColor)),
+                      ])),
                       SizedBox(
                         height: 29.h,
                       ),
@@ -120,7 +128,9 @@ class SignUp extends StatelessWidget {
                           const Text(
                             "Sign Up",
                             style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w500,color: Colors.white),
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white),
                           ),
                           InkWell(
                             onTap: vm.signUp,

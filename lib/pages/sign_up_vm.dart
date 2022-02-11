@@ -42,7 +42,7 @@ class SignUpVM extends BaseViewModel {
       Get.toNamed("/categories");
     } on DioError catch (_) {
       hideLoading();
-      showError(_.message);
+      showError(_.getErrorMessage());
     } catch (_) {
       hideLoading();
       showError(_.toString());

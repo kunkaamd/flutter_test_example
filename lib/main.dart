@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
             fontFamily: "Lato",
             primaryColor: AppColor.h647FFF
         ),
-        initialRoute: '/sign-up',
+        initialRoute: '/categories',
         getPages: [
           GetPage(name: '/sign-up', page: () => SignUp()),
           GetPage(name: '/categories', page: () => Category()),

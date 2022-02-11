@@ -17,7 +17,7 @@ abstract class CommonService {
 
   @PUT('/users/{userId}/default-categories')
   @Headers({"Content-Type": "application/json"})
-  Future<UserResponseDTO> saveCategories(
+  Future<dynamic> saveCategories(
       @Body() Map<String, dynamic> body,@Path("userId") String userId);
 
   @GET('/categories')

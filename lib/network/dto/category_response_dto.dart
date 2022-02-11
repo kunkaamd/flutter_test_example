@@ -4,7 +4,7 @@ part 'category_response_dto.g.dart';
 @JsonSerializable()
 class CategoryResponseDTO {
 
-  @JsonKey(name: "data")
+  @JsonKey(name: "categories")
   List<CategoryView>? data;
 
   CategoryResponseDTO();
@@ -16,13 +16,16 @@ class CategoryResponseDTO {
 
 @JsonSerializable()
 class CategoryView {
-  @JsonKey(name: 'ID')
+  @JsonKey(name: 'id')
   int? id;
 
-  @JsonKey(name: 'Name')
+  @JsonKey(name: 'name')
   String? name;
 
-  CategoryView();
+  @JsonKey(ignore: true)
+  bool isSelected;
+
+  CategoryView({this.isSelected = false});
   factory CategoryView.fromJson(Map<String, dynamic> json) => _$CategoryViewFromJson(json);
   Map<String, dynamic> toJson() => _$CategoryViewToJson(this);
 }
